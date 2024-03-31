@@ -9,7 +9,7 @@ function App() {
 
     const apiKey:string = import.meta.env.VITE_API_KEY
 
-    const url = `https://www.googleapis.com/books/v1/volumes?q=${query}&key=${apiKey}`
+    const url:string = `https://www.googleapis.com/books/v1/volumes?q=${query}&key=${apiKey}`
     
     try{
 
