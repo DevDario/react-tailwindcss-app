@@ -6,14 +6,26 @@ function App() {
   const [inputText, setInputText] = useState('')
 
   async function searchBook(query:string):Promise<void>{
-    const data = await fetch(`https://example/${query}`, {
-      headers: {
-        'method': 'GET',
-        'type': 'application/json'
-      }
-    })
-    const response = await data.json()
-    return console.log(response)
+
+    const apiKey:string = import.meta.env.VITE_API_KEY
+
+    const url = `https://www.googleapis.com/books/v1/volumes?q=${query}&key=${apiKey}`
+    
+    try{
+
+      const data = await fetch(url)
+
+      const response = await data.json()
+
+      console.log(response)
+
+    }catch(error){
+      console.log("Error while fetching")
+    }
+  }
+
+  async function handleSearch(){
+    await searchBook(inputText)
   }
 
   return (
@@ -33,7 +45,7 @@ function App() {
 
           <button 
             className='bg-purple-950 text-white p-1 rounded mx-2 hover:bg-purple-900 w-24 h-11 font-semibold' 
-              onClick={searchBook(inputText)}>Search</button>
+              onClick={handleSearch}>Search</button>
       </div>
 
     </div>
